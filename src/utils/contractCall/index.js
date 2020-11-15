@@ -1,6 +1,15 @@
 import Web3 from 'web3';
 import bulksendContractDetails from './contractDetails';
 
+const expectedBlockTime = 1000;
+
+const myGasPrice = 5*10**10;
+
+const sleep = (milliseconds) => {
+  return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
+
+
 let web3;
 
 if (window.ethereum) {
@@ -150,7 +159,8 @@ const bulkSendToken = async (
         .bulkSendToken(tokenAddress, addressArr, amountArr)
         .send({
           from: currAccount,
-          value: value
+          value: value,
+          gasPrice: myGasPrice
         })
         .on('transactionHash', async txHash => {
           console.log(txHash);
@@ -160,28 +170,31 @@ const bulkSendToken = async (
       token.methods
         .approve(contractAddress, _total)
         .send({
-          from: currAccount
+          from: currAccount,
+          gasPrice: myGasPrice
         })
-        .on('transactionHash', async hash => {
-          console.log(hash);
-          amountArr = amountArr.concat(Array(100 - amountArr.length).fill('0'));
-          addressArr = addressArr.concat(
-            Array(100 - addressArr.length).fill(
-              '0x0000000000000000000000000000000000000000'
-            )
-          );
+        .on('transactionHash', async transactonHash => {
+          console.log("Submitted transaction with hash: ", transactonHash)
+          let transactionReceipt = null
+          while (transactionReceipt == null) { // Waiting expectedBlockTime until the transaction is mined
+            transactionReceipt = await web3.eth.getTransactionReceipt(transactonHash);
+            await sleep(expectedBlockTime)
+          }
+          console.log("Got the transaction receipt: ", transactionReceipt)
+
           bulksendContract.methods
             .bulkSendToken(tokenAddress, addressArr, amountArr)
             .send({
               from: currAccount,
-              value: value
+              value: value,
+              gasPrice: myGasPrice
             })
             .on('transactionHash', async txHash => {
               console.log(txHash);
               fn(txHash);
             });
-          return hash;
-        });
+          return transactonHash;
+        })
     }
 
   } catch (err) {

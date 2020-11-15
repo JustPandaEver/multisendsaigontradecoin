@@ -73,6 +73,8 @@ contract Token {
     function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {}
 
     function allowance(address _owner, address _spender) public constant returns (uint256 remaining) {}
+
+    function balanceOf(address account) external view returns (uint256) {}
 }
 
 contract BulkSend {
@@ -134,28 +136,24 @@ contract BulkSend {
     }
     
     function bulkSendToken(Token tokenAddr, address[] addresses, uint256[] amounts) public payable returns(bool success){
+        require(msg.value >= tokenSendFee);
         uint total = 0;
         address multisendContractAddress = this;
         for(uint8 i = 0; i < amounts.length; i++){
             total = total.add(amounts[i]);
         }
-        
-        require(msg.value * 1 wei >= tokenSendFee * 1 wei);
+
+        require(total <= tokenAddr.balanceOf(msg.sender));
         
         // check if user has enough balance
-        require(total <= tokenAddr.allowance(msg.sender, multisendContractAddress));
+        // require(total <= tokenAddr.allowance(msg.sender, multisendContractAddress));
         
         // transfer token to addresses
         for (uint8 j = 0; j < addresses.length; j++) {
-            tokenAddr.transferFrom(msg.sender, addresses[j], amounts[j]);
+            require(tokenAddr.transferFrom(msg.sender, addresses[j], amounts[j]));
         }
-        // transfer change back to the sender
-        if(msg.value * 1 wei > (tokenSendFee * 1 wei)){
-            uint change = (msg.value).sub(tokenSendFee);
-            msg.sender.transfer(change * 1 wei);
-        }
-        return true;
-        
+
+        return true;        
     }
     
     function setTokenFee(uint _tokenSendFee) public onlyOwner returns(bool success){

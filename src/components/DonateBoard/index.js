@@ -13,8 +13,8 @@ export default () => (
           donating to any of the addresses below.
       </div>
       <div className="donation-address">
-          <div>ETH: 0x79e688fACa70Ae47484187B6f1A650c4b6494E52</div>
-          <div>BTC: 1MhAWz4vwSWDY5bSbyaMTqqNqjFDw6MDzx</div>
+          <div>ETH: 0x93E9A007E39Df18FEfAc82ab713eD76aAeD540F6</div>
+          <div>TRX: TRGNA8eM4GrRLzsYUKbvf23RRCNTUvCU76</div>
       </div>
     </div>
   </div>

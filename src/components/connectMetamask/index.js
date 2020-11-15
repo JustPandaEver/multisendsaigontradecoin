@@ -109,7 +109,7 @@ class connectMetamask extends Component {
             <h2>No web3 provider found</h2>
             <div>
               Install web3 provider. <br />{' '}
-              <span style={{ color: '#1bbf0d' }}>For Desktop:</span>
+              <span style={{ color: '#6c5ce7' }}>For Desktop:</span>
               <br />
               Please install{' '}
               <a
@@ -122,7 +122,7 @@ class connectMetamask extends Component {
               </a>
               {', '}
               and return to this page to continue. <br />
-              <span style={{ color: '#1bbf0d' }}>For Mobile:</span>
+              <span style={{ color: '#6c5ce7' }}>For Mobile:</span>
               <br />
               Please go to your device appstore, download{' '}
               <span>

@@ -63,14 +63,14 @@
 
 .gs-modal > div input:hover,
 .gs-modal > div input:focus {
-  border-color: #1bbf0d;
+  border-color: #6c5ce7;
 }
 
 .gs-modal > div button {
   height: 2em;
   border-radius: 10px;
   color: #fff;
-  background-color: #1bbf0d;
+  background-color: #6c5ce7;
 }
 
 /* ============Confirm Txn modal======== */
@@ -89,7 +89,7 @@
 
 .success-txn > div > a {
     text-decoration: underline;
-    color: #1bbf0d;
+    color: #6c5ce7;
 }
 
 .confirm-txn > div,
@@ -119,7 +119,7 @@
 }
 
 .confirm-btn {
-  background-color: #1bbf0d !important;
+  background-color: #6c5ce7 !important;
   margin: 0% 5%;
 }
 

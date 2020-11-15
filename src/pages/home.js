@@ -13,7 +13,7 @@ export default () => (
     <Divider />
     <Workings />
     <Divider />
-    <BuiltWith />
+    {/* <BuiltWith /> */}
     <Divider />
     <Footer />
   </main>

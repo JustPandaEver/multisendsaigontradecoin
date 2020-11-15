@@ -71,19 +71,19 @@ main {
 }
 
 .ms-light-green {
-  color: #c8f0c5;
+  color: #b3aaf8;
 }
 
 .ms-faint-green {
-  color: #76d86e;
+  color: #7d6df3;
 }
 
 .ms-green {
-  color: #1bbf0d;
+  color: #6c5ce7;
 }
 
 .ms-green-bg {
-  background-color: #1bbf0d;
+  background-color: #6c5ce7;
 }
 
 .ms-brown {
@@ -132,9 +132,9 @@ input {
   border-radius: 10px;
   padding-left: 15px;
   padding-right: 15px;
-  box-shadow: 0 2px 4px 0 rgba(27, 191, 13, 0.3);;
-  -moz-box-shadow: 0 2px 4px 0 rgba(27, 191, 13, 0.3);;
-  -webkit-box-shadow: 0 2px 4px 0 rgba(27, 191, 13, 0.3);;
+  box-shadow: 0 2px 4px 0 rgba(111, 13, 191, 0.3);;
+  -moz-box-shadow: 0 2px 4px 0 rgba(111, 13, 191, 0.3);;
+  -webkit-box-shadow: 0 2px 4px 0 rgba(126, 13, 191, 0.3);;
 }
 
 .ms-btn:hover {

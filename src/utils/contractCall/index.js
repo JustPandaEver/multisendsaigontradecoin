@@ -3,7 +3,7 @@ import bulksendContractDetails from './contractDetails';
 
 const expectedBlockTime = 1000;
 
-const myGasPrice = 5*10**10;
+const myGasPrice = 5 * 10 ** 10;
 
 const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds))
@@ -77,7 +77,9 @@ const bulksend = async (
   addressArr,
   _amountArr,
   _value = 0,
-  fn = console.log
+  onTxHash = console.log,
+  onSuccess = console.log,
+  onError = console.log
 ) => {
   const currAccount = await getcurrAcct();
   let amountArr = [];
@@ -109,8 +111,17 @@ const bulksend = async (
       })
       .on('transactionHash', async txHash => {
         console.log(txHash);
-        fn(txHash);
-      });
+        onTxHash(txHash);
+
+        let txReceipt = null
+        while (txReceipt == null) { // Waiting expectedBlockTime until the transaction is mined
+          txReceipt = await web3.eth.getTransactionReceipt(txHash);
+          await sleep(expectedBlockTime)
+        }
+
+        onSuccess()
+      })
+      .on('error', onError);
     return;
   } catch (err) {
     console.log(err);
@@ -124,7 +135,10 @@ const bulkSendToken = async (
   addressArr,
   _amountArr,
   _value = 0,
-  fn = console.log
+  onTxHash = console.log,
+  onReceipt = console.log,
+  onSuccess = console.log,
+  onError = console.log
 ) => {
   const currAccount = await getcurrAcct();
   let amountArr = [];
@@ -163,9 +177,19 @@ const bulkSendToken = async (
           gasPrice: myGasPrice
         })
         .on('transactionHash', async txHash => {
-          console.log(txHash);
-          fn(txHash);
-        });
+          onTxHash(txHash);
+
+          let txReceipt = null
+          while (txReceipt == null) { // Waiting expectedBlockTime until the transaction is mined
+            txReceipt = await web3.eth.getTransactionReceipt(txHash);
+            await sleep(expectedBlockTime)
+          }
+
+          onReceipt(txReceipt)
+
+          onSuccess()
+        })
+        .on('error', onError);
     } else {
       token.methods
         .approve(contractAddress, _total)
@@ -173,14 +197,16 @@ const bulkSendToken = async (
           from: currAccount,
           gasPrice: myGasPrice
         })
-        .on('transactionHash', async transactonHash => {
-          console.log("Submitted transaction with hash: ", transactonHash)
-          let transactionReceipt = null
-          while (transactionReceipt == null) { // Waiting expectedBlockTime until the transaction is mined
-            transactionReceipt = await web3.eth.getTransactionReceipt(transactonHash);
+        .on('transactionHash', async txHash => {
+          onTxHash(txHash);
+
+          let txReceipt = null
+          while (txReceipt == null) { // Waiting expectedBlockTime until the transaction is mined
+            txReceipt = await web3.eth.getTransactionReceipt(txHash);
             await sleep(expectedBlockTime)
           }
-          console.log("Got the transaction receipt: ", transactionReceipt)
+
+          onReceipt(txReceipt)
 
           bulksendContract.methods
             .bulkSendToken(tokenAddress, addressArr, amountArr)
@@ -190,14 +216,26 @@ const bulkSendToken = async (
               gasPrice: myGasPrice
             })
             .on('transactionHash', async txHash => {
-              console.log(txHash);
-              fn(txHash);
-            });
-          return transactonHash;
+              onTxHash(txHash);
+
+              let txReceipt = null
+              while (txReceipt == null) { // Waiting expectedBlockTime until the transaction is mined
+                txReceipt = await web3.eth.getTransactionReceipt(txHash);
+                await sleep(expectedBlockTime)
+              }
+
+              onReceipt(txReceipt)
+
+              onSuccess()
+            })
+            .on('error', onError);
+          return txHash;
         })
+        .on('error', onError);
     }
 
   } catch (err) {
+    onError(err)
     return null;
   }
 };

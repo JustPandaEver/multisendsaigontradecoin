@@ -10,6 +10,7 @@ import link from "./../../assets/imgs/link.svg";
 import add from "./../../assets/imgs/add.svg";
 import send from "./../../assets/imgs/send.svg";
 import error from "./error.svg";
+import loading from "./loading.svg";
 
 const imgs = {
     btcaddr,
@@ -23,7 +24,8 @@ const imgs = {
     link,
     add,
     send,
-    error
+    error,
+    loading
 }
 
 export default imgs;

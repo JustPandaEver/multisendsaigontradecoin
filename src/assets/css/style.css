@@ -202,4 +202,20 @@ p {
   display: none !important;
 }
 
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.center div {
+  width: 100%;
+  text-align: center;
+}
+
+.center img {
+  width: 60px;
+  height: 60px;
+}
+
 @import "./mobile.css";

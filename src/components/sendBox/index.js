@@ -104,7 +104,16 @@ class SendBox extends React.Component {
             0,
             txHash => {
               ctx.handleChange('txHash', txHash);
+              ctx.handleChange('modalName', 'waitingTx');
+            },
+            receipt => {
+              ctx.handleChange('modalName', 'hidden');
+            },
+            success => {
               ctx.handleChange('modalName', 'success');
+            },
+            error => {
+              ctx.handleChange('modalName', 'error');
             }
           );
         } else {
@@ -114,7 +123,13 @@ class SendBox extends React.Component {
             0,
             txHash => {
               ctx.handleChange('txHash', txHash);
+              ctx.handleChange('modalName', 'waitingTx');
+            },
+            success => {
               ctx.handleChange('modalName', 'success');
+            },
+            error => {
+              ctx.handleChange('modalName', 'error');
             }
           );
         }

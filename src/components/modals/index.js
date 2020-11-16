@@ -3,6 +3,7 @@ import ConfirmTxn from "./confirmTxn";
 import GoogleSheetImporter from "./gsImport";
 import SuccessBox from "./successTxn";
 import ErrorModal from "./errorModal";
+import LoadingTxModal from "./loadingTxModal";
 import "./index.css";
 import { withContext } from './../../provider/index';
 
@@ -39,6 +40,9 @@ class Modals extends React.Component {
         break;
       case "error":
         Modal = ErrorModal
+        break;
+      case "waitingTx":
+        Modal = LoadingTxModal;
         break;
       default:
         Modal = () => <React.Fragment />;

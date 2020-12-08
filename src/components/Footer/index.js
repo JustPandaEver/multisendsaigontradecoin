@@ -8,7 +8,7 @@ export default () => (
         <div><Link to="/donate">Donate</Link></div>
         <ul>
             <li><a target="_blank" rel="noopener noreferrer" href="https://t.me/multisendsgtradecoin">Telegram</a></li>
-            <li><a target="_blank" rel="noopener noreferrer" href="https://etherscan.io/address/0x1C874419e06c97dfDE802cd665348e9f97801c5b">Etherscan</a></li>
+            <li><a target="_blank" rel="noopener noreferrer" href="https://etherscan.io/address/0xFe99D64fB9B2051689C112e5bEF06EdfcD5d311d">Etherscan</a></li>
             <li><a target="_blank" rel="noopener noreferrer" href="https://github.com/yoolsylva/multisendsaigontradecoin">Github</a></li>
         </ul>
     </footer>

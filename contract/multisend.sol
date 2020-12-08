@@ -77,7 +77,7 @@ contract Token {
     function balanceOf(address account) external view returns (uint256) {}
 }
 
-contract BulkSend {
+contract MultiTransfer {
     using SafeMath for uint256;
     
     address public owner;
